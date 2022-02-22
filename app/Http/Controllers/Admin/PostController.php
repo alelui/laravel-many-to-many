@@ -19,7 +19,9 @@ class PostController extends Controller
         // catwegory_id: può essere nullo|verificase esite id nella tabella categories
         "category_id" => 'nullable|exists:categories,id',
         //image: valore del max espresso in kB, il mimme specivica i formati ammesssi
-        "image" => 'nullable|mimes:jpeg,bmp,png|max:2048' 
+        "image" => 'nullable|mimes:jpeg,bmp,png|max:2048',
+        //possono essrene nulla ma se esitono sono nella tabella tags colonna id e controlla se sono validi
+        "tags" => 'nullable|exists:tags,id'
     ];
     /**
      * Display a listing of the resource.
@@ -83,6 +85,9 @@ class PostController extends Controller
         }
         //salvataggio modifiche DB
         $newPost->save();
+        if (isset($data["tags"])) {
+            $newPost->tags()->sync($data["tags"]);
+        }
 
         //redirect al post creato
         return redirect()->route('posts.show', $newPost->id);

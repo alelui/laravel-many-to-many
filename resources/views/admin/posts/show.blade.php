@@ -21,9 +21,15 @@
                         <span class="badge badge-warning">Bozza</span>
                     @endif
                     <div class="category">
-                        
                         @if ($post->category) {{-- categoy rappresenta la classe nel model (public function), cosi facendo creiamo una join --}}
                         <span class="badge badge-info">{{$post->category->name}}</span> 
+                        @endif
+                    </div>
+                    <div class="category">
+                        @if (count($post->tags) > 0) {{--  --}}
+                            @foreach ($post->tags as $tag)
+                            <span class="badge badge-secondary">{{$tag->name}}</span> 
+                            @endforeach
                         @endif
                     </div>
                 </div>
