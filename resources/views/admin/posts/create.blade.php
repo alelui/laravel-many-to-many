@@ -12,21 +12,21 @@
                     <form action="{{route('posts.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group mb-5">
-                          <label for="title">Titolo</label>
+                            <h4>Titolo</h4>
                           <input type="text" class="form-control" @error('title') is-invalid @enderror id="title" name="title" placeholder="Inserire titolo">
                             @error('title')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group mb-5">
-                            <label for="content">Contenuto</label>
+                            <h4>Contenuto</h4>
                             <textarea class="form-control" @error('content') is-invalid @enderror id="content" name="content" placeholder="Inserire contenuto" rows="3"></textarea>
                             @error('content')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                           </div>
                         <div class="form-group mb-5">
-                            <label for="category">Categoria</label>
+                            <h4>Categoria</h4>
                             <select class="custom-select mb-3" @error('category_id') is-invalid @enderror  name="category_id" id="category">
                                 <option value="">Seleziona Una Categoria</option>
                                 @foreach ($categories as $category)
@@ -38,8 +38,18 @@
                             @enderror
                         </div>
                         <div class="form-group mb-5">
+                          
+                            <h4>Tags</h4>
+                            @foreach ($tags as $tag)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="{{$tag->slug}}" name="tags[]" value="{{$tag->id}}">
+                                <label class="form-check-label" for="{{$tag->slug}}">{{$tag->name}}</label>
+                              </div>
+                            @endforeach
+                        </div>
+                        <div class="form-group mb-5">
                             <div>
-                                <p class="mb-2" ><label for="image">Aggiungi un'immagine</label></p>
+                                <p class="mb-2" ><label for="image"><strong>Aggiungi un'immagine</strong></label></p>
                                 <input type="file" id="image" name="image">
                               </div>
                         </div>
