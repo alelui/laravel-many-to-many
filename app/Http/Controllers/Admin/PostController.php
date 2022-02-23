@@ -164,6 +164,10 @@ class PostController extends Controller
         }
 
         $post->save();
+
+        if (isset($data["tags"])) {
+            $post->tags()->sync($data["tags"]);
+        }
         return view('admin.posts.show', compact("post"));
     }
 
